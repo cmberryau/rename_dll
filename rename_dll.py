@@ -1,3 +1,7 @@
+"""
+Make sure you're running this script in a developer command prompt or dumpbin and lib will not be found
+"""
+
 import argparse
 import subprocess
 import re
