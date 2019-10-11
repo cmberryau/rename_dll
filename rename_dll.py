@@ -17,13 +17,13 @@ process = subprocess.Popen(['dumpbin', '/EXPORTS', args.inputdll], stdout=subpro
 out, err = process.communicate()
 
 # get all the function definitions
-lines = out.split('\n')
+lines = out.splitlines(keepends=False)
 pattern = r'^\s*(\d+)\s+[A-Z0-9]+\s+[A-Z0-9]{8}\s+([^ ]+)'
 
 library_output = 'EXPORTS \n'
 
 for line in lines:
-    matches = re.search(pattern, line)
+    matches = re.search(pattern, line.decode('ascii'))
 
     if matches is not None:
         #ordinal = matches.group(1)
