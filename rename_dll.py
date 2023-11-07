@@ -10,6 +10,7 @@ from shutil import copyfile
 parser = argparse.ArgumentParser(description='Renames a dll file, generates new def and lib files')
 parser.add_argument('inputdll', help='input dll')
 parser.add_argument('outputdll', help='output dll')
+parser.add_argument('--architecture', choices=['X64', 'X86'], default='X64', help='architecture type')
 args = parser.parse_args()
 
 # dump the dll exports using dumpbin
@@ -35,7 +36,7 @@ deffile_name = args.outputdll[:-4] + '.def'
 with open(deffile_name, 'w') as f:
     f.write(library_output)
 
-process = subprocess.Popen(['lib', '/MACHINE:X64', '/DEF:' + deffile_name], )
+process = subprocess.Popen(['lib', '/MACHINE:' + args.architecture, '/DEF:' + deffile_name], )
 out, err = process.communicate()
 
 # copy the dll over
