@@ -39,4 +39,7 @@ process = subprocess.Popen(['lib', '/MACHINE:X64', '/DEF:' + deffile_name], )
 out, err = process.communicate()
 
 # copy the dll over
-copyfile(args.inputdll, args.outputdll)
+try:
+    copyfile(args.inputdll, args.outputdll)
+except OSError:
+    pass
